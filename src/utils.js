@@ -43,7 +43,13 @@ export function getBestMatchingLanguage(language, props, loadLanguage) {
   // if the string is composed try to find a match with only the first language identifiers (en-US --> en)
   const idx = language.indexOf('-');
   const auxLang = idx >= 0 ? language.substring(0, idx) : language;
-  return props[auxLang] ? auxLang : Object.keys(props)[0];
+  const lang = props[auxLang] ? auxLang : Object.keys(props)[0];
+
+  if (props[auxLang] && typeof loadLanguage === 'function') {
+    loadLanguage(lang);
+  }
+
+  return lang;
 }
 
 /**
