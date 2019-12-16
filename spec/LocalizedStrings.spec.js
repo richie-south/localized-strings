@@ -276,3 +276,32 @@ describe('use psuedo characters', () => {
     expect(strings.formatString('language')).not.toBe('english');
   });
 });
+
+describe('use loadLanguage to dynamically load language', () => {
+  it('Psuedo changed value', () => {
+    const strings = new LocalizedStrings({
+      en: {
+        language: 'english',
+      },
+    }, {
+      loadLanguage: (countryCode) => {
+        if (countryCode === 'en-US') {
+          return;
+        }
+        const content = strings.getContent();
+        // check if language is avaiable
+        if (!content[countryCode]) {
+          // -> "download" and set content
+          strings.setContent(Object.assign(content, {
+            it: {
+              language: 'italy',
+            },
+          }));
+        }
+      },
+    });
+
+    strings.setLanguage('it');
+    expect(strings.formatString('language')).not.toBe('english');
+  });
+});
