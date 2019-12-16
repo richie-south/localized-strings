@@ -64,9 +64,11 @@ declare module "localized-strings" {
   export type LocalizedStrings<T> = LocalizedStringsMethods & T;
 
   type GetInterfaceLanguageCallback = () => string;
+  type loadLanguageCallback = (countryCode: string) => void;
 
   interface Options {
     customLanguageInterface?: GetInterfaceLanguageCallback;
+    loadLanguage?: loadLanguageCallback;
     logsEnabled?: boolean;
     pseudo?: boolean;
     pseudoMultipleLanguages?: boolean;
