@@ -117,10 +117,13 @@ export default class LocalizedStrings {
    * indipendently from the interface one
    * @param {*} language
    */
-  setLanguage(language) {
+  setLanguage(language, loadLanguage = true) {
     // Check if exists a translation for the current language or if the default
     // should be used
-    const bestLanguage = utils.getBestMatchingLanguage(language, this._props, this._opts.loadLanguage);
+    const bestLanguage = utils.getBestMatchingLanguage(language, this._props,
+      loadLanguage
+        ? this._opts.loadLanguage
+        : null);
     const defaultLanguage = Object.keys(this._props)[0];
     this._language = bestLanguage;
     // Associate the language object to the this object
