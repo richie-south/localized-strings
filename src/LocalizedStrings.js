@@ -54,8 +54,9 @@ export default class LocalizedStrings {
   /**
    * Set the strings objects based on the parameter passed in the constructor
    * @param {*} props
+   * @param {boolean} shouldSetLanguage
    */
-  setContent(props) {
+  setContent(props, shouldSetLanguage = true) {
     const [defaultLang] = Object.keys(props);
     this._defaultLanguage = defaultLang;
     this._defaultLanguageFirstLevelKeys = [];
@@ -69,7 +70,9 @@ export default class LocalizedStrings {
       }
     });
     // Set language to its default value (the interface)
-    this.setLanguage(this._interfaceLanguage);
+    if (shouldSetLanguage) {
+      this.setLanguage(this._interfaceLanguage);
+    }
     // Developermode with pseudo
     if (this._opts.pseudo) {
       this._pseudoAllValues(this._props);

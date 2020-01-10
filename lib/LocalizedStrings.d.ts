@@ -53,7 +53,7 @@ declare module "localized-strings" {
      * Replace the NamedLocalization object without reinstantiating the object
      * @param props
      */
-    setContent(props: any): void;
+    setContent(props: any, shouldSetLanguage?: boolean): void;
 
     /**
      * Return current locale object
