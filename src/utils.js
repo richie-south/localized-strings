@@ -33,20 +33,22 @@ export function getInterfaceLanguage() {
  * @param {*} props
  */
 export function getBestMatchingLanguage(language, props, loadLanguage) {
+  // If an object with the passed language key exists return it
+  if (props[language]) return language;
+
+  // if language does not exist try to load it
   if (typeof loadLanguage === 'function') {
     loadLanguage(language);
   }
-
-  // If an object with the passed language key exists return it
-  if (props[language]) return language;
 
   // if the string is composed try to find a match with only the first language identifiers (en-US --> en)
   const idx = language.indexOf('-');
   const auxLang = idx >= 0 ? language.substring(0, idx) : language;
   const lang = props[auxLang] ? auxLang : Object.keys(props)[0];
 
-  if (props[auxLang] && typeof loadLanguage === 'function') {
-    loadLanguage(lang);
+  // if language does not exist try to load it by aux lang
+  if (typeof loadLanguage === 'function') {
+    loadLanguage(auxLang);
   }
 
   return lang;
